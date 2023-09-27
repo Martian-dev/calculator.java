@@ -1,4 +1,4 @@
 # Java Calculator
-A Simple calculator using Java and Swing widget toolkit.
+A Simple scientific calculator using Java and Swing widget toolkit.
 
 ![img.png](assets/img.png)
