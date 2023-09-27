@@ -238,14 +238,17 @@ public class Calculator implements ActionListener {
             switch (operation) {
                 case '+':
                     txf.setText(Double.toString(num1+num2));
+                    operation = ' ';
                     break;
 
                 case '-':
                     txf.setText(Double.toString(num1-num2));
+                    operation = ' ';
                     break;
 
                 case '*':
                     txf.setText(Double.toString(num1*num2));
+                    operation = ' ';
                     break;
 
                 case '/':
@@ -254,10 +257,12 @@ public class Calculator implements ActionListener {
                         break;
                     }
                     txf.setText(Double.toString(num1/num2));
+                    operation = ' ';
                     break;
 
                 case '^':
                     txf.setText(Double.toString(Math.pow(num1, num2)));
+                    operation = ' ';
                     break;
 
                 default:
