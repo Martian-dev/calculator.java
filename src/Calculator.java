@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -13,6 +14,8 @@ public class Calculator implements ActionListener {
     static JButton addButton, subButton, divButton, multiButton, sqButton, sqrtButton, powButton, equButton, clrButton, delButton, sinButton, cosButton, tanButton;
     static JButton button1, button2, button3, button4, button5, button6, button7, button8, button9, button0;
     static JButton piButton;
+    static JButton dotButton;
+    static JButton histButton;
 
     static char operation;
     static double num1;
@@ -22,12 +25,12 @@ public class Calculator implements ActionListener {
     public static void main(String[] args) {
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(520, 620);
+        frame.setSize(570, 620);
         frame.getContentPane().setBackground(Color.DARK_GRAY);
         frame.setTitle("Calculator Da");
 
         txf = new JTextField();
-        txf.setBounds(50, 25, 400, 50);
+        txf.setBounds(50, 25, 450, 50);
         txf.setEditable(false);
         txf.setBackground(Color.gray);
         txf.setForeground(Color.white);
@@ -104,8 +107,14 @@ public class Calculator implements ActionListener {
         button0 = new JButton("0");
         button0.addActionListener(new Calculator());
 
+        dotButton = new JButton(".");
+        dotButton.addActionListener(new Calculator());
+
         piButton = new JButton("π");
         piButton.addActionListener(new Calculator());
+
+        histButton = new JButton("hist");
+        histButton.addActionListener(new Calculator());
 
         numberButtons[0] = button0;
         numberButtons[1] = button1;
@@ -118,13 +127,12 @@ public class Calculator implements ActionListener {
         numberButtons[8] = button8;
         numberButtons[9] = button9;
 
-        delButton.setBounds(50, 470, 153, 50);
-        clrButton.setBounds(213, 470, 153, 50);
-        sqButton.setBounds(50, 410, 153, 50);
-        sqrtButton.setBounds(213, 410, 153, 50);
+        delButton.setBounds(50, 420, 154, 50);
+        clrButton.setBounds(213, 420, 154, 50);
+        histButton.setBounds(376, 420, 67, 50);
         panel = new JPanel();
         panel.setBounds(50,100,400,300);
-        panel.setLayout(new GridLayout(4, 5, 10,10));
+        panel.setLayout(new GridLayout(5, 5, 10,10));
         panel.setBackground(Color.DARK_GRAY);
 
         for (int i = 1; i<=3; i++) {
@@ -147,16 +155,20 @@ public class Calculator implements ActionListener {
 
         panel.add(multiButton);
         panel.add(tanButton);
-        panel.add(powButton);
+        panel.add(dotButton);
         panel.add(numberButtons[0]);
         panel.add(equButton);
         panel.add(divButton);
         panel.add(piButton);
 
+        panel.add(sqButton);
+        panel.add(sqrtButton);
+        panel.add(powButton);
+        panel.add(new JButton());
+
         frame.add(delButton);
         frame.add(clrButton);
-        frame.add(sqButton);
-        frame.add(sqrtButton);
+        frame.add(histButton);
         frame.add(txf);
         frame.add(panel);
 
@@ -192,6 +204,9 @@ public class Calculator implements ActionListener {
             num1 = Double.parseDouble(txf.getText());
             txf.setText("");
             operation = '^';
+        }
+        else if (e.getSource() == dotButton) {
+            txf.setText(txf.getText() + ".");
         }
         else if (e.getSource() == sqButton) {
             sngl = Double.parseDouble(txf.getText());
