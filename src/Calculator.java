@@ -295,6 +295,7 @@ public class Calculator implements ActionListener {
             operation = 'r';
         }
         else if (e.getSource() == dotButton) {
+            // TODO: Remove the bug of having multiple decimal points
             txf.setText(txf.getText() + ".");
         }
         else if (e.getSource() == sqButton) {
@@ -362,6 +363,9 @@ public class Calculator implements ActionListener {
         }
         else if (e.getSource() == clrButton) {
             txf.setText("");
+            num1 = 0;
+            num2 = 0;
+            operation = ' ';
         }
         else if (e.getSource() == delButton) {
             String currentText = txf.getText();
@@ -432,7 +436,6 @@ public class Calculator implements ActionListener {
                 }
             }
         }
-
     }
 
     public void history() {
