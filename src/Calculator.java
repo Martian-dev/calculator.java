@@ -265,22 +265,38 @@ public class Calculator implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == addButton) {
-            num1 = Double.parseDouble(txf.getText());
+            if (num1 != 0) {
+                num1 = num1 + Double.parseDouble(txf.getText());
+            } else {
+                num1 = Double.parseDouble(txf.getText());
+            }
             txf.setText("");
             operation = '+';
         }
         else if (e.getSource() == subButton) {
-            num1 = Double.parseDouble(txf.getText());
+            if (num1 != 0) {
+                num1 = num1 - Double.parseDouble(txf.getText());
+            } else {
+                num1 = Double.parseDouble(txf.getText());
+            }
             txf.setText("");
             operation = '-';
         }
         else if (e.getSource() == multiButton) {
-            num1 = Double.parseDouble(txf.getText());
+            if (num1 != 0) {
+                num1 = num1 * Double.parseDouble(txf.getText());
+            } else {
+                num1 = Double.parseDouble(txf.getText());
+            }
             txf.setText("");
             operation = '*';
         }
         else if (e.getSource() == divButton) {
-            num1 = Double.parseDouble(txf.getText());
+            if (num1 != 0) {
+                num1 = num1 / Double.parseDouble(txf.getText());
+            } else {
+                num1 = Double.parseDouble(txf.getText());
+            }
             txf.setText("");
             operation = '/';
         }
@@ -295,8 +311,9 @@ public class Calculator implements ActionListener {
             operation = 'r';
         }
         else if (e.getSource() == dotButton) {
-            // TODO: Remove the bug of having multiple decimal points
-            txf.setText(txf.getText() + ".");
+            if (!txf.getText().contains(".")) {
+                txf.setText(txf.getText() + ".");
+            }
         }
         else if (e.getSource() == sqButton) {
             sngl = Double.parseDouble(txf.getText());
@@ -385,47 +402,56 @@ public class Calculator implements ActionListener {
             }
         }
         else if (e.getSource() == equButton) {
-            num2 = Double.parseDouble(txf.getText());
-            switch (operation) {
-                case '+':
-                    txf.setText(Double.toString(num1+num2));
-                    operation = ' ';
-                    break;
-
-                case '-':
-                    txf.setText(Double.toString(num1-num2));
-                    operation = ' ';
-                    break;
-
-                case '*':
-                    txf.setText(Double.toString(num1*num2));
-                    operation = ' ';
-                    break;
-
-                case '/':
-                    if (num2 == 0) {
-                        txf.setText("Cannot Divide By Zero");
+            if (!txf.getText().isEmpty()) {
+                num2 = Double.parseDouble(txf.getText());
+                switch (operation) {
+                    case '+':
+                        txf.setText(Double.toString(num1 + num2));
+                        operation = ' ';
+                        num1 = 0;
+                        num2 = 0;
                         break;
-                    }
-                    txf.setText(Double.toString(num1/num2));
-                    operation = ' ';
-                    break;
 
-                case '^':
-                    txf.setText(Double.toString(Math.pow(num1, num2)));
-                    operation = ' ';
-                    break;
+                    case '-':
+                        txf.setText(Double.toString(num1 - num2));
+                        operation = ' ';
+                        num1 = 0;
+                        num2 = 0;
+                        break;
 
-                case 'r':
-                    txf.setText(Double.toString(Math.pow(num2, 1/num1)));
-                    operation = ' ';
-                    break;
+                    case '*':
+                        txf.setText(Double.toString(num1 * num2));
+                        operation = ' ';
+                        num1 = 0;
+                        num2 = 0;
+                        break;
 
-                default:
-                    break;
+                    case '/':
+                        if (num2 == 0) {
+                            txf.setText("Cannot Divide By Zero");
+                            break;
+                        }
+                        txf.setText(Double.toString(num1 / num2));
+                        operation = ' ';
+                        num1 = 0;
+                        num2 = 0;
+                        break;
+
+                    case '^':
+                        txf.setText(Double.toString(Math.pow(num1, num2)));
+                        operation = ' ';
+                        break;
+
+                    case 'r':
+                        txf.setText(Double.toString(Math.pow(num2, 1 / num1)));
+                        operation = ' ';
+                        break;
+
+                    default:
+                        break;
+                }
+                history();
             }
-            history();
-
         }
 
         else {
