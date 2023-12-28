@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class Calculator implements ActionListener {
 
@@ -26,6 +27,9 @@ public class Calculator implements ActionListener {
     static double num2;
     static double sngl;
     static String ans;
+    static ArrayList<String> hist = new ArrayList<String>();
+    static Font text_font = new Font("Times New Roman", Font.BOLD, 16);
+    static Color buttonColor = new Color(201, 197, 183);
 
     public static void main(String[] args) {
         frame = new JFrame();
@@ -226,32 +230,32 @@ public class Calculator implements ActionListener {
             }
         };
 
-        addButton.setBackground(new Color(201, 197, 183));
-        subButton.setBackground(new Color(201, 197, 183));
-        multiButton.setBackground(new Color(201, 197, 183));
-        divButton.setBackground(new Color(201, 197, 183));
-        powButton.setBackground(new Color(201, 197, 183));
-        epowButton.setBackground(new Color(201, 197, 183));
-        sqrtButton.setBackground(new Color(201, 197, 183));
-        sqButton.setBackground(new Color(201, 197, 183));
-        equButton.setBackground(new Color(201, 197, 183));
-        delButton.setBackground(new Color(201, 197, 183));
-        clrButton.setBackground(new Color(201, 197, 183));
-        xrootButton.setBackground(new Color(201, 197, 183));
-        piButton.setBackground(new Color(201, 197, 183));
-        sinButton.setBackground(new Color(201, 197, 183));
-        cosButton.setBackground(new Color(201, 197, 183));
-        tanButton.setBackground(new Color(201, 197, 183));
-        asinbutton.setBackground(new Color(201, 197, 183));
-        acosbutton.setBackground(new Color(201, 197, 183));
-        atanbutton.setBackground(new Color(201, 197, 183));
-        logbutton.setBackground(new Color(201, 197, 183));
-        lnbutton.setBackground(new Color(201, 197, 183));
-        dotButton.setBackground(new Color(201, 197, 183));
-        histButton.setBackground(new Color(201, 197, 183));
+        addButton.setBackground(buttonColor);
+        subButton.setBackground(buttonColor);
+        multiButton.setBackground(buttonColor);
+        divButton.setBackground(buttonColor);
+        powButton.setBackground(buttonColor);
+        epowButton.setBackground(buttonColor);
+        sqrtButton.setBackground(buttonColor);
+        sqButton.setBackground(buttonColor);
+        equButton.setBackground(buttonColor);
+        delButton.setBackground(buttonColor);
+        clrButton.setBackground(buttonColor);
+        xrootButton.setBackground(buttonColor);
+        piButton.setBackground(buttonColor);
+        sinButton.setBackground(buttonColor);
+        cosButton.setBackground(buttonColor);
+        tanButton.setBackground(buttonColor);
+        asinbutton.setBackground(buttonColor);
+        acosbutton.setBackground(buttonColor);
+        atanbutton.setBackground(buttonColor);
+        logbutton.setBackground(buttonColor);
+        lnbutton.setBackground(buttonColor);
+        dotButton.setBackground(buttonColor);
+        histButton.setBackground(buttonColor);
 
         for (JButton i : numberButtons) {
-            i.setBackground(new Color(201, 197, 183));
+            i.setBackground(buttonColor);
         }
 
         histButton.addItemListener(itemListener);
@@ -466,15 +470,23 @@ public class Calculator implements ActionListener {
 
     public void history() {
         ans = txf.getText();
-        JLabel history = new JLabel();
-        JLabel spacefiller = new JLabel("------------------------------------------------------------------------------------------------------------------------------------------");
-        historyP.add(history);
-        historyP.add(spacefiller);
-        history.setText(ans);
-        history.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        history.setBounds(560, 110, 300, 300);
-        spacefiller.setBounds(560, 115, 300, 300);
-        spacefiller.setForeground(Color.gray);
-        history.setForeground(Color.white);
+
+        if (!(hist.size() > 10)) {
+            hist.add(ans);
+        } else {
+            hist.removeFirst();
+            hist.add(ans);
+        }
+        updateHistoryPanel();
+    }
+
+    public static void updateHistoryPanel() {
+        historyP.removeAll();
+        historyP.revalidate();
+        historyP.repaint();
+        historyP.setLayout(new BoxLayout(historyP, BoxLayout.PAGE_AXIS));
+        for (String i: hist) {
+            historyP.add(new CLabel(i, Color.white, text_font));
+        }
     }
 }
